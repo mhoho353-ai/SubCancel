@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#2563eb" />
-  <title>SubCancel | متتبع الاشتراكات</title>
+
+  <title>SubCancel — Private Subscription Tracker</title>
+
+  <meta
+    name="description"
+    content="Track subscriptions, renewal dates, and cancellation links without connecting your bank account."
+  />
 
   <style>
     :root {
@@ -22,7 +28,7 @@
 
     * {
       box-sizing: border-box;
-      font-family: Arial, "Tahoma", sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
@@ -38,7 +44,7 @@
       box-shadow: 0 2px 10px rgba(37, 99, 235, 0.22);
     }
 
-    header .header-content {
+    .header-content {
       max-width: 960px;
       margin: auto;
       display: flex;
@@ -54,7 +60,7 @@
 
     .subtitle {
       margin: 6px 0 0;
-      color: rgba(255, 255, 255, 0.82);
+      color: rgba(255, 255, 255, 0.85);
       font-size: 14px;
     }
 
@@ -62,6 +68,28 @@
       max-width: 960px;
       margin: 22px auto;
       padding: 0 16px 50px;
+    }
+
+    .hero {
+      text-align: center;
+    }
+
+    .hero h2 {
+      margin: 0 0 10px;
+      font-size: 28px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
+    .trust-line {
+      margin-top: 16px !important;
+      font-size: 13px;
+      color: var(--muted);
     }
 
     .summary {
@@ -105,6 +133,16 @@
       font-size: 19px;
     }
 
+    .notice {
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #eff6ff;
+      color: #1e40af;
+      margin-bottom: 18px;
+      font-size: 14px;
+      border: 1px solid #bfdbfe;
+    }
+
     .form-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -126,7 +164,8 @@
       font-weight: bold;
     }
 
-    input, select {
+    input,
+    select {
       width: 100%;
       padding: 12px;
       border: 1px solid var(--border);
@@ -136,7 +175,8 @@
       color: var(--text);
     }
 
-    input:focus, select:focus {
+    input:focus,
+    select:focus {
       outline: 2px solid #bfdbfe;
       border-color: var(--primary);
     }
@@ -148,7 +188,8 @@
       margin-top: 16px;
     }
 
-    button, .button-link {
+    button,
+    .button-link {
       border: 0;
       border-radius: 9px;
       padding: 11px 15px;
@@ -277,16 +318,6 @@
       border-radius: 12px;
     }
 
-    .notice {
-      padding: 12px 14px;
-      border-radius: 10px;
-      background: #eff6ff;
-      color: #1e40af;
-      margin-bottom: 18px;
-      font-size: 14px;
-      border: 1px solid #bfdbfe;
-    }
-
     .hidden {
       display: none !important;
     }
@@ -306,6 +337,18 @@
       text-align: center;
     }
 
+    footer {
+      text-align: center;
+      padding: 25px 15px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
     @media (max-width: 650px) {
       .summary {
         grid-template-columns: 1fr;
@@ -323,6 +366,10 @@
         grid-column: 1 / -1;
         justify-content: flex-start;
       }
+
+      .hero h2 {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
@@ -333,69 +380,65 @@
       <div>
         <h1>💳 SubCancel</h1>
         <p class="subtitle">
-  Track subscriptions, renewal dates, and cancellation links —
-  without linking your bank account.
+          Track subscriptions, renewal dates, and cancellation links —
+          without linking your bank account.
         </p>
       </div>
     </div>
   </header>
 
   <main>
+    <section class="panel hero">
+      <h2>Stop surprise subscription renewals.</h2>
 
-    <section class="panel" style="text-align: center;">
-  <h2 style="font-size: 28px; margin-bottom: 10px;">
-    Stop surprise subscription renewals.
-  </h2>
+      <p>
+        See what you spend every month, track upcoming renewals,
+        and open cancellation links — without creating an account
+        or connecting your bank.
+      </p>
 
-  <p style="color: #64748b; line-height: 1.8; max-width: 650px; margin: auto;">
-    See what you spend each month, track upcoming renewals,
-    and open cancellation links — without creating an account
-    or connecting your bank.
-  </p>
+      <div class="actions" style="justify-content: center;">
+        <a class="button-link primary" href="#subscriptionForm">
+          Start tracking for free
+        </a>
+      </div>
 
-  <div class="actions" style="justify-content: center; margin-top: 20px;">
-    <a class="button-link primary" href="#subscriptionForm">
-      Start tracking for free
-    </a>
-  </div>
+      <p class="trust-line">
+        ✓ No bank connection &nbsp; ✓ No sign-up &nbsp; ✓ Data stays in your browser
+      </p>
+    </section>
 
-  <p style="font-size: 13px; color: #64748b; margin-top: 16px;">
-    ✓ No bank connection &nbsp; ✓ No sign-up &nbsp; ✓ Data stays in your browser
-  </p>
-  </section>
-
-
-    
     <div class="notice">
-      🔒 خصوصيتك أولًا: بياناتك محفوظة داخل متصفحك فقط. لا نطلب حسابًا بنكيًا ولا بريدًا إلكترونيًا.
+      🔒 Privacy first: your subscription data is stored only in your browser.
+      We do not collect bank logins, card numbers, or subscription data.
     </div>
 
     <section class="summary">
       <div class="summary-card">
-        <span>إجمالي الإنفاق الشهري</span>
+        <span>Estimated monthly spending</span>
         <strong id="monthlyTotal">$0.00</strong>
       </div>
 
       <div class="summary-card">
-        <span>إجمالي الإنفاق السنوي</span>
+        <span>Estimated yearly spending</span>
         <strong id="yearlyTotal">$0.00</strong>
       </div>
 
       <div class="summary-card">
-        <span>عدد الاشتراكات</span>
+        <span>Active subscriptions</span>
         <strong id="subscriptionsCount">0</strong>
       </div>
     </section>
 
     <section class="panel">
-      <h2 id="formTitle">إضافة اشتراك جديد</h2>
+      <h2 id="formTitle">Add a subscription</h2>
 
       <form id="subscriptionForm">
         <div class="form-grid">
           <div class="form-group">
-            <label for="service">خدمة شائعة</label>
+            <label for="service">Popular service</label>
             <select id="service">
-              <option value="">اختر خدمة أو اكتب الاسم يدويًا</option>
+              <option value="">Choose a service or enter one manually</option>
               <option value="Netflix">Netflix</option>
               <option value="Spotify">Spotify</option>
               <option value="YouTube Premium">YouTube Premium</option>
@@ -411,67 +454,102 @@
           </div>
 
           <div class="form-group">
-            <label for="name">اسم الاشتراك</label>
-            <input id="name" type="text" placeholder="مثال: Netflix أو نادي رياضي" required />
+            <label for="name">Subscription name</label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Example: Netflix or Gym membership"
+              required
+            />
           </div>
 
           <div class="form-group">
-            <label for="price">السعر</label>
-            <input id="price" type="number" min="0.01" step="0.01" placeholder="مثال: 9.99" required />
+            <label for="price">Price</label>
+            <input
+              id="price"
+              type="number"
+              min="0.01"
+              step="0.01"
+              placeholder="Example: 9.99"
+              required
+            />
           </div>
 
           <div class="form-group">
-            <label for="currency">العملة</label>
+            <label for="currency">Currency</label>
             <select id="currency">
-              <option value="$">دولار أمريكي ($)</option>
-              <option value="€">يورو (€)</option>
-              <option value="£">جنيه إسترليني (£)</option>
-              <option value="ج.م">جنيه مصري (ج.م)</option>
-              <option value="ر.س">ريال سعودي (ر.س)</option>
-              <option value="د.إ">درهم إماراتي (د.إ)</option>
+              <option value="$">US Dollar ($)</option>
+              <option value="€">Euro (€)</option>
+              <option value="£">British Pound (£)</option>
+              <option value="CAD$">Canadian Dollar (CAD$)</option>
+              <option value="A$">Australian Dollar (A$)</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="cycle">دورة الدفع</label>
+            <label for="cycle">Billing cycle</label>
             <select id="cycle">
-              <option value="monthly">شهري</option>
-              <option value="yearly">سنوي</option>
-              <option value="weekly">أسبوعي</option>
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+              <option value="weekly">Weekly</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="renewalDate">تاريخ التجديد القادم</label>
+            <label for="renewalDate">Next renewal date</label>
             <input id="renewalDate" type="date" required />
           </div>
 
           <div class="form-group full">
-            <label for="cancelUrl">رابط الإلغاء أو إدارة الاشتراك — اختياري</label>
-            <input id="cancelUrl" type="url" placeholder="https://example.com/account" />
+            <label for="cancelUrl">
+              Cancellation or account-management link (optional)
+            </label>
+            <input
+              id="cancelUrl"
+              type="url"
+              placeholder="https://example.com/account"
+            />
           </div>
         </div>
 
         <div class="actions">
-          <button class="primary" type="submit" id="saveButton">➕ حفظ الاشتراك</button>
-          <button class="secondary hidden" type="button" id="cancelEditButton">إلغاء التعديل</button>
+          <button class="primary" type="submit" id="saveButton">
+            ➕ Save subscription
+          </button>
+
+          <button class="secondary hidden" type="button" id="cancelEditButton">
+            Cancel edit
+          </button>
         </div>
       </form>
     </section>
 
     <section class="panel">
       <div class="subscriptions-header">
-        <h2>اشتراكاتي</h2>
+        <h2>My subscriptions</h2>
 
         <div class="actions" style="margin-top: 0;">
-          <button class="secondary small" id="exportButton" type="button">⬇️ تصدير نسخة</button>
-          <button class="danger small" id="clearButton" type="button">🗑️ حذف الكل</button>
+          <button class="secondary small" id="exportButton" type="button">
+            ⬇️ Export backup
+          </button>
+
+          <button class="danger small" id="clearButton" type="button">
+            🗑️ Delete all
+          </button>
         </div>
       </div>
 
       <div id="subscriptionList" class="subscription-list"></div>
     </section>
   </main>
+
+  <footer>
+    <a href="privacy.html">Privacy Policy</a>
+    &nbsp;·&nbsp;
+    <a href="ضع-هنا-رابط-Google-Form" target="_blank" rel="noopener">
+      Send feedback
+    </a>
+  </footer>
 
   <div id="toast" class="toast hidden"></div>
 
@@ -547,12 +625,38 @@
     }
 
     function getStatus(days) {
-      if (days < 0) return { text: `تاريخ التجديد مر منذ ${Math.abs(days)} يوم`, className: "danger" };
-      if (days === 0) return { text: "⚠️ يتجدد اليوم", className: "danger" };
-      if (days <= 3) return { text: `⚠️ يتجدد خلال ${days} أيام`, className: "danger" };
-      if (days <= 7) return { text: `يتجدد خلال ${days} أيام`, className: "warning" };
+      if (days < 0) {
+        return {
+          text: `Renewal date was ${Math.abs(days)} day(s) ago`,
+          className: "danger"
+        };
+      }
 
-      return { text: `التجديد بعد ${days} يوم`, className: "safe" };
+      if (days === 0) {
+        return {
+          text: "⚠️ Renews today",
+          className: "danger"
+        };
+      }
+
+      if (days <= 3) {
+        return {
+          text: `⚠️ Renews in ${days} day(s)`,
+          className: "danger"
+        };
+      }
+
+      if (days <= 7) {
+        return {
+          text: `Renews in ${days} day(s)`,
+          className: "warning"
+        };
+      }
+
+      return {
+        text: `Renews in ${days} day(s)`,
+        className: "safe"
+      };
     }
 
     function escapeHtml(text) {
@@ -577,8 +681,8 @@
         subscriptionList.innerHTML = `
           <div class="empty">
             <div style="font-size: 42px;">💳</div>
-            <h3>لا توجد اشتراكات حتى الآن</h3>
-            <p>أضف أول اشتراك لمعرفة ما تدفعه شهريًا وسنويًا.</p>
+            <h3>No subscriptions yet</h3>
+            <p>Add your first subscription to see your monthly and yearly spending.</p>
           </div>
         `;
         return;
@@ -587,8 +691,9 @@
       subscriptionList.innerHTML = subscriptions.map((subscription) => {
         const days = getDaysUntil(subscription.renewalDate);
         const status = getStatus(days);
+
         const date = new Date(subscription.renewalDate + "T00:00:00")
-          .toLocaleDateString("ar-EG", {
+          .toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
             day: "numeric"
@@ -597,31 +702,38 @@
         const safeName = escapeHtml(subscription.name);
         const firstLetter = safeName.charAt(0).toUpperCase();
 
+        const cycleText =
+          subscription.cycle === "monthly"
+            ? "per month"
+            : subscription.cycle === "yearly"
+            ? "per year"
+            : "per week";
+
         return `
           <article class="subscription-card">
             <div class="icon">${firstLetter}</div>
 
             <div class="sub-info">
               <h3>${safeName}</h3>
-              <p>${formatMoney(subscription.price, subscription.currency)} — ${
-                subscription.cycle === "monthly"
-                  ? "شهريًا"
-                  : subscription.cycle === "yearly"
-                  ? "سنويًا"
-                  : "أسبوعيًا"
-              }</p>
-              <p>التجديد القادم: ${date}</p>
+              <p>${formatMoney(subscription.price, subscription.currency)} ${cycleText}</p>
+              <p>Next renewal: ${date}</p>
               <span class="badge ${status.className}">${status.text}</span>
             </div>
 
             <div class="sub-actions">
               ${
                 subscription.cancelUrl
-                  ? `<a class="button-link secondary small" href="${subscription.cancelUrl}" target="_blank" rel="noopener">🔗 إدارة / إلغاء</a>`
+                  ? `<a class="button-link secondary small" href="${subscription.cancelUrl}" target="_blank" rel="noopener">🔗 Manage / cancel</a>`
                   : ""
               }
-              <button class="secondary small" onclick="editSubscription('${subscription.id}')">✏️ تعديل</button>
-              <button class="danger small" onclick="deleteSubscription('${subscription.id}')">🗑️ حذف</button>
+
+              <button class="secondary small" onclick="editSubscription('${subscription.id}')">
+                ✏️ Edit
+              </button>
+
+              <button class="danger small" onclick="deleteSubscription('${subscription.id}')">
+                🗑️ Delete
+              </button>
             </div>
           </article>
         `;
@@ -640,15 +752,18 @@
     function resetForm() {
       form.reset();
       editingId = null;
-      formTitle.textContent = "إضافة اشتراك جديد";
-      saveButton.textContent = "➕ حفظ الاشتراك";
+
+      formTitle.textContent = "Add a subscription";
+      saveButton.textContent = "➕ Save subscription";
       cancelEditButton.classList.add("hidden");
+
       setDefaultDate();
     }
 
     function setDefaultDate() {
       const nextMonth = new Date();
       nextMonth.setMonth(nextMonth.getMonth() + 1);
+
       renewalDateInput.value = nextMonth.toISOString().split("T")[0];
     }
 
@@ -658,6 +773,7 @@
       if (!subscription) return;
 
       editingId = id;
+
       serviceInput.value = "";
       nameInput.value = subscription.name;
       priceInput.value = subscription.price;
@@ -666,8 +782,8 @@
       renewalDateInput.value = subscription.renewalDate;
       cancelUrlInput.value = subscription.cancelUrl || "";
 
-      formTitle.textContent = `تعديل اشتراك: ${subscription.name}`;
-      saveButton.textContent = "💾 حفظ التعديل";
+      formTitle.textContent = `Edit subscription: ${subscription.name}`;
+      saveButton.textContent = "💾 Save changes";
       cancelEditButton.classList.remove("hidden");
 
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -678,17 +794,19 @@
 
       if (!subscription) return;
 
-      const confirmed = confirm(`هل تريد حذف اشتراك "${subscription.name}"؟`);
+      const confirmed = confirm(`Delete "${subscription.name}"?`);
 
       if (!confirmed) return;
 
-      const updatedSubscriptions = getSubscriptions().filter((item) => item.id !== id);
+      const updatedSubscriptions = getSubscriptions()
+        .filter((item) => item.id !== id);
+
       saveSubscriptions(updatedSubscriptions);
 
       if (editingId === id) resetForm();
 
       render();
-      showToast("تم حذف الاشتراك.");
+      showToast("Subscription deleted.");
     }
 
     serviceInput.addEventListener("change", () => {
@@ -711,7 +829,7 @@
       const renewalDate = renewalDateInput.value;
 
       if (!name || !price || price <= 0 || !renewalDate) {
-        showToast("يرجى إدخال اسم وسعر وتاريخ تجديد صحيح.");
+        showToast("Please enter a valid name, price, and renewal date.");
         return;
       }
 
@@ -730,10 +848,10 @@
       if (editingId) {
         const index = subscriptions.findIndex((item) => item.id === editingId);
         subscriptions[index] = subscriptionData;
-        showToast("تم تعديل الاشتراك بنجاح.");
+        showToast("Subscription updated.");
       } else {
         subscriptions.push(subscriptionData);
-        showToast("تم حفظ الاشتراك بنجاح.");
+        showToast("Subscription saved.");
       }
 
       saveSubscriptions(subscriptions);
@@ -747,25 +865,29 @@
       const subscriptions = getSubscriptions();
 
       if (subscriptions.length === 0) {
-        showToast("لا توجد بيانات لحذفها.");
+        showToast("There is no data to delete.");
         return;
       }
 
-      const confirmed = confirm("سيتم حذف كل الاشتراكات نهائيًا من هذا الجهاز. هل أنت متأكد؟");
+      const confirmed = confirm(
+        "This will permanently delete all subscriptions stored in this browser. Continue?"
+      );
 
       if (!confirmed) return;
 
       localStorage.removeItem(STORAGE_KEY);
+
       resetForm();
       render();
-      showToast("تم حذف جميع الاشتراكات.");
+
+      showToast("All subscriptions were deleted.");
     });
 
     document.getElementById("exportButton").addEventListener("click", () => {
       const subscriptions = getSubscriptions();
 
       if (subscriptions.length === 0) {
-        showToast("أضف اشتراكًا واحدًا على الأقل قبل التصدير.");
+        showToast("Add at least one subscription before exporting.");
         return;
       }
 
@@ -782,25 +904,15 @@
       downloadLink.click();
 
       URL.revokeObjectURL(fileUrl);
-      showToast("تم تنزيل نسخة احتياطية من بياناتك.");
+
+      showToast("Backup downloaded.");
     });
 
     setDefaultDate();
     render();
   </script>
 
-  <a
-  class="button-link secondary"
-  href="https://docs.google.com/forms/d/e/1FAIpQLSfkzk7AqzA7PlemqXGCnXsXMVSdu-43Roc4IrB0N0-1671F5g/viewform?usp=publish-editor"
-  target="_blank"
-  rel="noopener"
->
-  💬 Send feedback
-</a>
 
-  <footer style="text-align: center; padding: 25px; color: #64748b;">
-  <a href="privacy.html" style="color: #2563eb;">Privacy Policy</a>
-  </footer>
   
 </body>
 </html>
