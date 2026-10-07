@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2563eb" />
+  <title>SubCancel | متتبع الاشتراكات</title>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --danger: #dc2626;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #dbe3ef;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Arial, "Tahoma", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 22px 16px;
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.22);
+    }
+
+    header .header-content {
+      max-width: 960px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 14px;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 22px auto;
+      padding: 0 16px 50px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .summary-card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+      border: 1px solid var(--border);
+    }
+
+    .summary-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .summary-card strong {
+      font-size: 23px;
+      color: var(--primary-dark);
+    }
+
+    .panel {
+      background: var(--card);
+      padding: 18px;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .panel h2 {
+      margin: 0 0 16px;
+      font-size: 19px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      font-size: 15px;
+      background: white;
+      color: var(--text);
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #bfdbfe;
+      border-color: var(--primary);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    button, .button-link {
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 15px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .secondary {
+      background: #e8eef9;
+      color: #1e3a8a;
+    }
+
+    .danger {
+      background: #fee2e2;
+      color: var(--danger);
+    }
+
+    .small {
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    .subscriptions-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .subscriptions-header h2 {
+      margin: 0;
+    }
+
+    .subscription-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .subscription-card {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 14px;
+      align-items: center;
+      border: 1px solid var(--border);
+      padding: 14px;
+      border-radius: 12px;
+      background: white;
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .sub-info h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+    }
+
+    .sub-info p {
+      margin: 3px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .sub-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .badge.safe {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge.warning {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge.danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 36px 12px;
+      color: var(--muted);
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+    }
+
+    .notice {
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #eff6ff;
+      color: #1e40af;
+      margin-bottom: 18px;
+      font-size: 14px;
+      border: 1px solid #bfdbfe;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      background: #172033;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 10px;
+      z-index: 1000;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      max-width: 90%;
+      text-align: center;
+    }
+
+    @media (max-width: 650px) {
+      .summary {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .subscription-card {
+        grid-template-columns: auto 1fr;
+      }
+
+      .sub-actions {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div>
+        <h1>💳 SubCancel</h1>
+        <p class="subtitle">اعرف اشتراكاتك قبل أن تتجدد وتدفع دون انتباه</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="notice">
+      🔒 خصوصيتك أولًا: بياناتك محفوظة داخل متصفحك فقط. لا نطلب حسابًا بنكيًا ولا بريدًا إلكترونيًا.
+    </div>
+
+    <section class="summary">
+      <div class="summary-card">
+        <span>إجمالي الإنفاق الشهري</span>
+        <strong id="monthlyTotal">$0.00</strong>
+      </div>
+
+      <div class="summary-card">
+        <span>إجمالي الإنفاق السنوي</span>
+        <strong id="yearlyTotal">$0.00</strong>
+      </div>
+
+      <div class="summary-card">
+        <span>عدد الاشتراكات</span>
+        <strong id="subscriptionsCount">0</strong>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 id="formTitle">إضافة اشتراك جديد</h2>
+
+      <form id="subscriptionForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="service">خدمة شائعة</label>
+            <select id="service">
+              <option value="">اختر خدمة أو اكتب الاسم يدويًا</option>
+              <option value="Netflix">Netflix</option>
+              <option value="Spotify">Spotify</option>
+              <option value="YouTube Premium">YouTube Premium</option>
+              <option value="Disney+">Disney+</option>
+              <option value="Amazon Prime">Amazon Prime</option>
+              <option value="Apple Music">Apple Music</option>
+              <option value="Google One">Google One</option>
+              <option value="Microsoft 365">Microsoft 365</option>
+              <option value="Adobe Creative Cloud">Adobe Creative Cloud</option>
+              <option value="Canva Pro">Canva Pro</option>
+              <option value="ChatGPT Plus">ChatGPT Plus</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="name">اسم الاشتراك</label>
+            <input id="name" type="text" placeholder="مثال: Netflix أو نادي رياضي" required />
+          </div>
+
+          <div class="form-group">
+            <label for="price">السعر</label>
+            <input id="price" type="number" min="0.01" step="0.01" placeholder="مثال: 9.99" required />
+          </div>
+
+          <div class="form-group">
+            <label for="currency">العملة</label>
+            <select id="currency">
+              <option value="$">دولار أمريكي ($)</option>
+              <option value="€">يورو (€)</option>
+              <option value="£">جنيه إسترليني (£)</option>
+              <option value="ج.م">جنيه مصري (ج.م)</option>
+              <option value="ر.س">ريال سعودي (ر.س)</option>
+              <option value="د.إ">درهم إماراتي (د.إ)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cycle">دورة الدفع</label>
+            <select id="cycle">
+              <option value="monthly">شهري</option>
+              <option value="yearly">سنوي</option>
+              <option value="weekly">أسبوعي</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="renewalDate">تاريخ التجديد القادم</label>
+            <input id="renewalDate" type="date" required />
+          </div>
+
+          <div class="form-group full">
+            <label for="cancelUrl">رابط الإلغاء أو إدارة الاشتراك — اختياري</label>
+            <input id="cancelUrl" type="url" placeholder="https://example.com/account" />
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" type="submit" id="saveButton">➕ حفظ الاشتراك</button>
+          <button class="secondary hidden" type="button" id="cancelEditButton">إلغاء التعديل</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="subscriptions-header">
+        <h2>اشتراكاتي</h2>
+
+        <div class="actions" style="margin-top: 0;">
+          <button class="secondary small" id="exportButton" type="button">⬇️ تصدير نسخة</button>
+          <button class="danger small" id="clearButton" type="button">🗑️ حذف الكل</button>
+        </div>
+      </div>
+
+      <div id="subscriptionList" class="subscription-list"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script>
+    const STORAGE_KEY = "subcancel_subscriptions_v1";
+
+    const cancelLinks = {
+      "Netflix": "https://www.netflix.com/cancel",
+      "Spotify": "https://www.spotify.com/account/",
+      "YouTube Premium": "https://www.youtube.com/paid_memberships",
+      "Disney+": "https://www.disneyplus.com/account",
+      "Amazon Prime": "https://www.amazon.com/gp/video/settings/membership",
+      "Apple Music": "https://support.apple.com/en-us/HT202039",
+      "Google One": "https://one.google.com/about",
+      "Microsoft 365": "https://account.microsoft.com/services",
+      "Adobe Creative Cloud": "https://account.adobe.com/plans",
+      "Canva Pro": "https://www.canva.com/settings/billing/",
+      "ChatGPT Plus": "https://chatgpt.com/#settings"
+    };
+
+    const form = document.getElementById("subscriptionForm");
+    const serviceInput = document.getElementById("service");
+    const nameInput = document.getElementById("name");
+    const priceInput = document.getElementById("price");
+    const currencyInput = document.getElementById("currency");
+    const cycleInput = document.getElementById("cycle");
+    const renewalDateInput = document.getElementById("renewalDate");
+    const cancelUrlInput = document.getElementById("cancelUrl");
+    const subscriptionList = document.getElementById("subscriptionList");
+    const monthlyTotalElement = document.getElementById("monthlyTotal");
+    const yearlyTotalElement = document.getElementById("yearlyTotal");
+    const subscriptionsCountElement = document.getElementById("subscriptionsCount");
+    const formTitle = document.getElementById("formTitle");
+    const saveButton = document.getElementById("saveButton");
+    const cancelEditButton = document.getElementById("cancelEditButton");
+    const toast = document.getElementById("toast");
+
+    let editingId = null;
+
+    function getSubscriptions() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveSubscriptions(subscriptions) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(subscriptions));
+    }
+
+    function getMonthlyCost(subscription) {
+      const price = Number(subscription.price);
+
+      if (subscription.cycle === "yearly") return price / 12;
+      if (subscription.cycle === "weekly") return price * 4.33;
+
+      return price;
+    }
+
+    function formatMoney(amount, currency = "$") {
+      return `${currency}${Number(amount).toFixed(2)}`;
+    }
+
+    function getDaysUntil(dateString) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const renewal = new Date(dateString + "T00:00:00");
+      const difference = renewal - today;
+
+      return Math.ceil(difference / (1000 * 60 * 60 * 24));
+    }
+
+    function getStatus(days) {
+      if (days < 0) return { text: `تاريخ التجديد مر منذ ${Math.abs(days)} يوم`, className: "danger" };
+      if (days === 0) return { text: "⚠️ يتجدد اليوم", className: "danger" };
+      if (days <= 3) return { text: `⚠️ يتجدد خلال ${days} أيام`, className: "danger" };
+      if (days <= 7) return { text: `يتجدد خلال ${days} أيام`, className: "warning" };
+
+      return { text: `التجديد بعد ${days} يوم`, className: "safe" };
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function render() {
+      const subscriptions = getSubscriptions()
+        .sort((a, b) => new Date(a.renewalDate) - new Date(b.renewalDate));
+
+      const monthlyTotal = subscriptions.reduce((sum, subscription) => {
+        return sum + getMonthlyCost(subscription);
+      }, 0);
+
+      monthlyTotalElement.textContent = formatMoney(monthlyTotal);
+      yearlyTotalElement.textContent = formatMoney(monthlyTotal * 12);
+      subscriptionsCountElement.textContent = subscriptions.length;
+
+      if (subscriptions.length === 0) {
+        subscriptionList.innerHTML = `
+          <div class="empty">
+            <div style="font-size: 42px;">💳</div>
+            <h3>لا توجد اشتراكات حتى الآن</h3>
+            <p>أضف أول اشتراك لمعرفة ما تدفعه شهريًا وسنويًا.</p>
+          </div>
+        `;
+        return;
+      }
+
+      subscriptionList.innerHTML = subscriptions.map((subscription) => {
+        const days = getDaysUntil(subscription.renewalDate);
+        const status = getStatus(days);
+        const date = new Date(subscription.renewalDate + "T00:00:00")
+          .toLocaleDateString("ar-EG", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          });
+
+        const safeName = escapeHtml(subscription.name);
+        const firstLetter = safeName.charAt(0).toUpperCase();
+
+        return `
+          <article class="subscription-card">
+            <div class="icon">${firstLetter}</div>
+
+            <div class="sub-info">
+              <h3>${safeName}</h3>
+              <p>${formatMoney(subscription.price, subscription.currency)} — ${
+                subscription.cycle === "monthly"
+                  ? "شهريًا"
+                  : subscription.cycle === "yearly"
+                  ? "سنويًا"
+                  : "أسبوعيًا"
+              }</p>
+              <p>التجديد القادم: ${date}</p>
+              <span class="badge ${status.className}">${status.text}</span>
+            </div>
+
+            <div class="sub-actions">
+              ${
+                subscription.cancelUrl
+                  ? `<a class="button-link secondary small" href="${subscription.cancelUrl}" target="_blank" rel="noopener">🔗 إدارة / إلغاء</a>`
+                  : ""
+              }
+              <button class="secondary small" onclick="editSubscription('${subscription.id}')">✏️ تعديل</button>
+              <button class="danger small" onclick="deleteSubscription('${subscription.id}')">🗑️ حذف</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.remove("hidden");
+
+      setTimeout(() => {
+        toast.classList.add("hidden");
+      }, 2500);
+    }
+
+    function resetForm() {
+      form.reset();
+      editingId = null;
+      formTitle.textContent = "إضافة اشتراك جديد";
+      saveButton.textContent = "➕ حفظ الاشتراك";
+      cancelEditButton.classList.add("hidden");
+      setDefaultDate();
+    }
+
+    function setDefaultDate() {
+      const nextMonth = new Date();
+      nextMonth.setMonth(nextMonth.getMonth() + 1);
+      renewalDateInput.value = nextMonth.toISOString().split("T")[0];
+    }
+
+    function editSubscription(id) {
+      const subscription = getSubscriptions().find((item) => item.id === id);
+
+      if (!subscription) return;
+
+      editingId = id;
+      serviceInput.value = "";
+      nameInput.value = subscription.name;
+      priceInput.value = subscription.price;
+      currencyInput.value = subscription.currency;
+      cycleInput.value = subscription.cycle;
+      renewalDateInput.value = subscription.renewalDate;
+      cancelUrlInput.value = subscription.cancelUrl || "";
+
+      formTitle.textContent = `تعديل اشتراك: ${subscription.name}`;
+      saveButton.textContent = "💾 حفظ التعديل";
+      cancelEditButton.classList.remove("hidden");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function deleteSubscription(id) {
+      const subscription = getSubscriptions().find((item) => item.id === id);
+
+      if (!subscription) return;
+
+      const confirmed = confirm(`هل تريد حذف اشتراك "${subscription.name}"؟`);
+
+      if (!confirmed) return;
+
+      const updatedSubscriptions = getSubscriptions().filter((item) => item.id !== id);
+      saveSubscriptions(updatedSubscriptions);
+
+      if (editingId === id) resetForm();
+
+      render();
+      showToast("تم حذف الاشتراك.");
+    }
+
+    serviceInput.addEventListener("change", () => {
+      const selectedService = serviceInput.value;
+
+      if (!selectedService) return;
+
+      nameInput.value = selectedService;
+
+      if (cancelLinks[selectedService]) {
+        cancelUrlInput.value = cancelLinks[selectedService];
+      }
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const name = nameInput.value.trim();
+      const price = Number(priceInput.value);
+      const renewalDate = renewalDateInput.value;
+
+      if (!name || !price || price <= 0 || !renewalDate) {
+        showToast("يرجى إدخال اسم وسعر وتاريخ تجديد صحيح.");
+        return;
+      }
+
+      const subscriptions = getSubscriptions();
+
+      const subscriptionData = {
+        id: editingId || Date.now().toString(),
+        name,
+        price,
+        currency: currencyInput.value,
+        cycle: cycleInput.value,
+        renewalDate,
+        cancelUrl: cancelUrlInput.value.trim()
+      };
+
+      if (editingId) {
+        const index = subscriptions.findIndex((item) => item.id === editingId);
+        subscriptions[index] = subscriptionData;
+        showToast("تم تعديل الاشتراك بنجاح.");
+      } else {
+        subscriptions.push(subscriptionData);
+        showToast("تم حفظ الاشتراك بنجاح.");
+      }
+
+      saveSubscriptions(subscriptions);
+      resetForm();
+      render();
+    });
+
+    cancelEditButton.addEventListener("click", resetForm);
+
+    document.getElementById("clearButton").addEventListener("click", () => {
+      const subscriptions = getSubscriptions();
+
+      if (subscriptions.length === 0) {
+        showToast("لا توجد بيانات لحذفها.");
+        return;
+      }
+
+      const confirmed = confirm("سيتم حذف كل الاشتراكات نهائيًا من هذا الجهاز. هل أنت متأكد؟");
+
+      if (!confirmed) return;
+
+      localStorage.removeItem(STORAGE_KEY);
+      resetForm();
+      render();
+      showToast("تم حذف جميع الاشتراكات.");
+    });
+
+    document.getElementById("exportButton").addEventListener("click", () => {
+      const subscriptions = getSubscriptions();
+
+      if (subscriptions.length === 0) {
+        showToast("أضف اشتراكًا واحدًا على الأقل قبل التصدير.");
+        return;
+      }
+
+      const file = new Blob(
+        [JSON.stringify(subscriptions, null, 2)],
+        { type: "application/json" }
+      );
+
+      const fileUrl = URL.createObjectURL(file);
+      const downloadLink = document.createElement("a");
+
+      downloadLink.href = fileUrl;
+      downloadLink.download = "subcancel-backup.json";
+      downloadLink.click();
+
+      URL.revokeObjectURL(fileUrl);
+      showToast("تم تنزيل نسخة احتياطية من بياناتك.");
+    });
+
+    setDefaultDate();
+    render();
+  </script>
+</body>
+</html>
